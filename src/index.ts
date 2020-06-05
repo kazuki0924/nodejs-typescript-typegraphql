@@ -1,13 +1,14 @@
 /** @format */
 
+import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server-express';
 import * as Express from 'express';
 import { buildSchema, Resolver, Query } from 'type-graphql';
 
 @Resolver()
 class HelloResolver {
-	@Query(() => String)
-	async hello() {
+	@Query(() => String, { nullable: true })
+	async helloWorld() {
 		return 'Hello World';
 	}
 }
@@ -22,6 +23,10 @@ const main = async () => {
 	const app = Express();
 
 	apolloServer.applyMiddleware({ app });
+
+	app.listen(4000, () => {
+		console.log('server started on http://localhost:4000/graphql');
+	});
 };
 
 main();
