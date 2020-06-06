@@ -1,21 +1,30 @@
 /** @format */
 
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { ObjectType, Field, ID } from "type-graphql";
 
+@ObjectType()
 @Entity()
-export class Users {
-	@PrimaryGeneratedColumn()
-	id: number;
+export class User extends BaseEntity {
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@Column()
-	firstName: string;
+  @Field()
+  @Column()
+  firstName: string;
 
-	@Column()
-	lastName: string;
+  @Field()
+  @Column()
+  lastName: string;
 
-	@Column()
-	email: string;
+  @Field()
+  @Column("text", { unique: true })
+  email: string;
 
-	@Column()
-	password: boolean;
+  @Field()
+  name: string;
+
+  @Column()
+  password: string;
 }
