@@ -24,7 +24,7 @@ export class RegisterResolver {
     return `${parent.firstName} ${parent.lastName}`;
   }
 
-  @Mutation(() => String, { nullable: true })
+  @Mutation(() => User)
   async register(
     @Arg("firstName") firstName: string,
     @Arg("lastName") lastName: string,
