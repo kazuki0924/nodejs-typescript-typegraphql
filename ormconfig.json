@@ -1,0 +1,11 @@
+{
+	"name": "default",
+	"type": "postgres",
+	"port": 5432,
+	"username": "postgres",
+	"password": "postgres",
+	"database": "nodejs-typescript-typegraphql",
+	"synchronize": true,
+	"logging": true,
+	"entities": ["src/entity/*.*"]
+}
