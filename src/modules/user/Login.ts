@@ -1,9 +1,10 @@
 /** @format */
 
-import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import bcrypt from "bcryptjs";
 
 import { User } from "../../entity/User";
+import { MyContext } from "../../types/MyContext";
 
 @Resolver(User)
 export class LoginResolver {
@@ -24,6 +25,8 @@ export class LoginResolver {
     if (!valid) {
       return null;
     }
+
+    ctx.req.session!.userId = user.id;
 
     return user;
   }
