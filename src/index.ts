@@ -10,6 +10,7 @@ import connectRedis from "connect-redis";
 
 import { RegisterResolver } from "./modules/user/Register";
 import { LoginResolver } from "./modules/user/Login";
+import { MeResolver } from "./modules/user/Me";
 import { redis } from "./redis";
 import cors from "cors";
 
@@ -17,7 +18,7 @@ const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver],
+    resolvers: [MeResolver, RegisterResolver, LoginResolver],
   });
 
   const apolloServer = new ApolloServer({
