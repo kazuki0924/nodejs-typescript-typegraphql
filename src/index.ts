@@ -13,6 +13,7 @@ import { LoginResolver } from "./modules/user/Login";
 import { MeResolver } from "./modules/user/Me";
 import { redis } from "./redis";
 import cors from "cors";
+import { sendEmail } from "./modules/utils/sendEmail";
 
 const main = async () => {
   await createConnection();
@@ -61,6 +62,7 @@ const main = async () => {
 
   app.listen(4000, () => {
     console.log("server started on http://localhost:4000/graphql");
+    sendEmail();
   });
 };
 
