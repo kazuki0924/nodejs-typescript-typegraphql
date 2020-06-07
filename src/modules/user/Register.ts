@@ -6,17 +6,16 @@ import bcrypt from "bcryptjs";
 import { User } from "../../entity/User";
 import { RegisterInput } from "./register/RegisterInput";
 
-@Resolver()
+@Resolver(User)
 export class RegisterResolver {
-  @Query(() => String)
+  @Query(() => String, { nullable: true })
   async hello() {
-    return "Hello World!";
+    return "Hello World";
   }
 
   @Mutation(() => User)
   async register(
-    @Arg("data")
-    { email, firstName, lastName, password }: RegisterInput
+    @Arg("data") { email, firstName, lastName, password }: RegisterInput
   ): Promise<User> {
     const hashedPassword = await bcrypt.hash(password, 12);
 
