@@ -12,15 +12,15 @@ export async function sendEmail(email: string, url: string) {
       pass: account.pass, // generated ethereal password
     },
   });
-
-  const mailOptions = {
-    from: '"Fred Foo ðŸ‘»" <foo@example.com>', // sender address
-    to: "email", // list of receivers
-    subject: "Hello âœ”", // Subject line
-    text: "Hello world?", // plain text body
-    html: `<a href="${url}>${url}</a>`, // html body
-  };
-
+  {
+    const mailOptions = {
+      from: '"Fred Foo ðŸ‘»" <foo@example.com>', // sender address
+      to: "email", // list of receivers
+      subject: "Hello âœ”", // Subject line
+      text: "Hello world?", // plain text body
+      html: `<a href="${url}>${url}</a>`, // html body
+    };
+  }
   const info = await transporter.sendMail(mailOptions);
 
   console.log("Message sent: %s", info.messageId);
