@@ -8,12 +8,12 @@ import { MyContext } from "../../types/MyContext";
 
 @Resolver(User)
 export class ConfirmUserResolver {
-  @Mutation(() => User, { nullable: true })
+  @Mutation(() => Boolean )
   async confirmUser(
-    @Arg("email") email: string,
-    @Arg("password") password: string,
+    @Arg("token") token: string,
     @Ctx() ctx: MyContext
   ): Promise<User | null> {
+    const userId = await.
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
