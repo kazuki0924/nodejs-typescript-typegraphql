@@ -15,7 +15,6 @@ const main = async () => {
   await createConnection();
 
   const schema = await createSchema();
-  });
 
   const apolloServer = new ApolloServer({
     schema,

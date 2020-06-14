@@ -1,5 +1,5 @@
+import Maybe from 'graphql/tsutils/Maybe'
 import { graphql } from 'graphql'
-import { Maybe } from 'type-graphql'
 
 import { createSchema } from '../utils/createSchema'
 

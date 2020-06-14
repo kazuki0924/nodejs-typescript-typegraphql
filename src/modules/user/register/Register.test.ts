@@ -26,18 +26,16 @@ mutation Register($data: RegisterInput!) {
 
 describe("Register", () => {
   it("create user", async () => {
-    console.log(
-      await gCall({
-        source: registerMutation,
-        variableValues: {
-          data: {
-            firstName: "John",
-            lastName: "Smith",
-            email: "johnsmith@example.com",
-            password: "password",
-          },
+    await gCall({
+      source: registerMutation,
+      variableValues: {
+        data: {
+          firstName: "John",
+          lastName: "Smith",
+          email: "johnsmith@example.com",
+          password: "password",
         },
-      })
-    );
+      },
+    });
   });
 });
