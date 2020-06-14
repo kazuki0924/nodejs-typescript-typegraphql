@@ -1,14 +1,14 @@
-import 'reflect-metadata'
+import 'reflect-metadata';
 
-import connectRedis from 'connect-redis'
-import cors from 'cors'
-import Express from 'express'
-import session from 'express-session'
-import { ApolloServer } from 'apollo-server-express'
-import { buildSchema } from 'type-graphql'
-import { createConnection } from 'typeorm'
+import { ApolloServer } from 'apollo-server-express';
+import connectRedis from 'connect-redis';
+import cors from 'cors';
+import Express from 'express';
+import session from 'express-session';
+import { buildSchema } from 'type-graphql';
+import { createConnection } from 'typeorm';
 
-import { redis } from './redis'
+import { redis } from './redis';
 
 /** @format */
 const main = async () => {
@@ -23,7 +23,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema,
-    context: ({ req }: any) => ({ req }),
+    context: ({ req, res }: any) => ({ req, res }),
   });
 
   const app = Express();
