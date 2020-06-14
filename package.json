@@ -4,7 +4,7 @@
 	"main": "index.js",
 	"repository": "https://github.com/kazuki0924/nodejs-typescript-typegraphql.git",
 	"author": "Kazuki Matsuzaki <kazuki0924@gmail.com>",
-	"license": "MIT",
+	"license": "UNLICENSED",
 	"dependencies": {
 		"apollo-server-express": "^2.14.2",
 		"bcryptjs": "^2.4.3",
@@ -25,6 +25,7 @@
 		"@types/express-session": "^1.17.0",
 		"@types/graphql": "^14.5.0",
 		"@types/ioredis": "^4.16.4",
+		"@types/jest": "^26.0.0",
 		"@types/node": "^14.0.11",
 		"@types/nodemailer": "^6.4.0",
 		"@types/uuid": "^8.0.0",
@@ -32,12 +33,16 @@
 		"cors": "^2.8.5",
 		"express-session": "^1.17.1",
 		"ioredis": "^4.17.3",
+		"jest": "^26.0.1",
 		"nodemon": "^2.0.4",
+		"ts-jest": "^26.1.0",
 		"ts-node": "^8.10.2",
 		"ts-node-dev": "^1.0.0-pre.44",
 		"typescript": "^3.9.5"
 	},
 	"scripts": {
-		"start": "nodemon --exec ts-node src/index.ts"
+		"start": "nodemon --exec ts-node src/index.ts",
+		"db:setup": "ts-node src/test-utils/setup.ts",
+		"test": "npm run db:setup && jest"
 	}
 }
