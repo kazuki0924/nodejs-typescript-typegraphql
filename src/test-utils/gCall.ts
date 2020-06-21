@@ -1,5 +1,5 @@
 import { graphql, GraphQLSchema } from "graphql";
-import Maybe from "graphql/tsutils/Maybe";
+import { Maybe } from "type-graphql";
 
 import { createSchema } from "../utils/createSchema";
 
@@ -24,12 +24,12 @@ export const gCall = async ({ source, variableValues, userId }: Options) => {
     contextValue: {
       req: {
         session: {
-          userId
-        }
+          userId,
+        },
       },
       res: {
-        clearCookie: jest.fn()
-      }
-    }
+        clearCookie: jest.fn(),
+      },
+    },
   });
 };
