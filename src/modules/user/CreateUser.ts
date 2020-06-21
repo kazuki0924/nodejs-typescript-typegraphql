@@ -1,11 +1,93 @@
-import { Resolver, Mutation, Arg } from "type-graphql";
+// import {
+//   Resolver,
+//   Mutation,
+//   Arg,
+//   ClassType,
+//   Field,
+//   InputType,
+// } from "type-graphql";
+// import { User } from "../../entity/User";
+// import { RegisterInput } from "./register/RegisterInput";
+// import { Product } from "../../entity/Product";
+
+// function createBaseResolver<T extends ClassType, X extends ClassType>(
+//   suffix: string,
+//   returnType: T,
+//   inputType: X,
+//   entity: any
+// ) {
+//   @Resolver({ isAbstract: true })
+//   abstract class BaseResolver {
+//     @Mutation(() => returnType, { name: `create${suffix}` })
+//     async createUser(@Arg("data", () => inputType) data: any) {
+//       return entity.create(data).save();
+//     }
+//   }
+
+//   return BaseResolver;
+// }
+
+// @InputType()
+// class ProductInput {
+//   @Field()
+//   name: string;
+// }
+
+// const BaseCreateUser = createBaseResolver("User", User, RegisterInput, User);
+// const BaseCreateProduct = createBaseResolver(
+//   "Product",
+//   Product,
+//   ProductInput,
+//   Product
+// );
+// @Resolver()
+// export class CreateUserResolver extends BaseCreateUser {}
+// @Resolver()
+// export class CreateProductResolver extends BaseCreateProduct {}
+
+import {
+  Resolver,
+  Mutation,
+  Arg,
+  ClassType,
+  Field,
+  InputType,
+} from "type-graphql";
 import { User } from "../../entity/User";
 import { RegisterInput } from "./register/RegisterInput";
+import { Product } from "../../entity/Product";
 
-@Resolver()
-export class CreateUserResolver {
-  @Mutation(() => User)
-  async createUser(@Arg("data") data: RegisterInput) {
-    return User.create(data).save();
+function createResolver<T extends ClassType, X extends ClassType>(
+  suffix: string,
+  returnType: T,
+  inputType: X,
+  entity: any
+) {
+  @Resolver({ isAbstract: true })
+  class BaseResolver {
+    @Mutation(() => returnType, { name: `create${suffix}` })
+    async createUser(@Arg("data", () => inputType) data: any) {
+      return entity.create(data).save();
+    }
   }
+
+  return BaseResolver;
 }
+
+@InputType()
+class ProductInput {
+  @Field()
+  name: string;
+}
+
+const BaseCreateUser = createResolver("User", User, RegisterInput, User);
+const BaseCreateProduct = createResolver(
+  "Product",
+  Product,
+  ProductInput,
+  Product
+);
+@Resolver()
+export class CreateUserResolver extends BaseCreateUser {}
+@Resolver()
+export class CreateProductResolver extends BaseCreateProduct {}
