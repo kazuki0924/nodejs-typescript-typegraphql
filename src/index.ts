@@ -1,14 +1,15 @@
-import 'reflect-metadata'
+import "reflect-metadata";
 
-import connectRedis from 'connect-redis'
-import cors from 'cors'
-import Express from 'express'
-import session from 'express-session'
-import { ApolloServer } from 'apollo-server-express'
-import { createConnection } from 'typeorm'
+import connectRedis from "connect-redis";
+import cors from "cors";
+import Express from "express";
+import session from "express-session";
+import queryComplexity, { simpleEstimator } from "graphql-query-complexity";
+import { ApolloServer } from "apollo-server-express";
+import { createConnection } from "typeorm";
 
-import { redis } from './redis'
-import { createSchema } from './utils/createSchema'
+import { redis } from "./redis";
+import { createSchema } from "./utils/createSchema";
 
 /** @format */
 const main = async () => {
@@ -19,6 +20,20 @@ const main = async () => {
   const apolloServer = new ApolloServer({
     schema,
     context: ({ req, res }: any) => ({ req, res }),
+    validationRules: [
+      queryComplexity({
+        maximumComplexity: 30,
+        variables: {},
+        onComplete: (complexity: number) => {
+          console.log("Query Complexity:", complexity);
+        },
+        estimators: [
+          simpleEstimator({
+            defaultComplexity: 1,
+          }),
+        ],
+      }) as any,
+    ],
   });
 
   const app = Express();
