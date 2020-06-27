@@ -19,7 +19,11 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema,
-    context: ({ req, res }: any) => ({ req, res }),
+    context: ({ req, res }: any) => ({
+      req,
+      res,
+      authorsLoader: createAuthorsLoader()
+    }),
     validationRules: [
       queryComplexity({
         maximumComplexity: 30,
@@ -64,11 +68,11 @@ const main = async () => {
     })
   );
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
     console.log("server started on http://localhost:4000/graphql");
   });
 };
 
-main();
+main().catch(err => console.error(err));

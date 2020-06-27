@@ -66,11 +66,11 @@ function createResolver<T extends ClassType, X extends ClassType>(
   entity: any,
   middleware?: Middleware<any>[]
 ) {
-  @Resolver({ isAbstract: true })
+  @Resolver()
   class BaseResolver {
     @Mutation(() => returnType, { name: `create${suffix}` })
     @UseMiddleware(...(middleware || []))
-    async createUser(@Arg("data", () => inputType) data: any) {
+    async create(@Arg("data", () => inputType) data: any) {
       return entity.create(data).save();
     }
   }
@@ -84,14 +84,13 @@ class ProductInput {
   name: string;
 }
 
-export const CreateUserResolve = createResolver(
+export const CreateUserResolver = createResolver(
   "User",
   User,
   RegisterInput,
   User
 );
-
-export const CreateUserResolver = createResolver(
+export const CreateProductResolver = createResolver(
   "Product",
   Product,
   ProductInput,
