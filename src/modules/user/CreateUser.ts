@@ -80,14 +80,16 @@ class ProductInput {
   name: string;
 }
 
-const BaseCreateUser = createResolver("User", User, RegisterInput, User);
-const BaseCreateProduct = createResolver(
+export const CreateUserResolve = createResolver(
+  "User",
+  User,
+  RegisterInput,
+  User
+);
+
+export const CreateUserResolver = createResolver(
   "Product",
   Product,
   ProductInput,
   Product
 );
-@Resolver()
-export class CreateUserResolver extends BaseCreateUser {}
-@Resolver()
-export class CreateProductResolver extends BaseCreateProduct {}
